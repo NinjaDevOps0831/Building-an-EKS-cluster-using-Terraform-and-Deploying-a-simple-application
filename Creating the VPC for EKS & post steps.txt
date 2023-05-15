@@ -1,0 +1,15 @@
+Before creating the VPC its good if you have AWS CLI,kubectl and Terraform installed on your local machine.
+Creating the VPC for EKS cluster:
+Amazon EKS requires subnets in at least two Availability Zones. AWS recommend a VPC with public and private subnets so that Kubernetes can create public load balancers in the public subnets that load balance traffic to pods running on nodes that are in private subnets.
+We will be deploying the VPC using CloudFormation,hence please use the below S3 Template URL to deploy the VPC which will provision 2 public and 2 private subnets in two different AZ's.
+https://amazon-eks.s3.us-west-2.amazonaws.com/cloudformation/2020-10-29/amazon-eks-vpc-private-subnets.yaml
+
+
+Post the cluster is created you need to execute the below commands:
+1) aws eks --region <us-west-2> update-kubeconfig --name <cluster_name>
+In my case it will be aws eks --region eu-central-1 update-kubeconfig --name my_eks_cluster
+
+You can test it by executing kubectl get svc.
+
+
+
